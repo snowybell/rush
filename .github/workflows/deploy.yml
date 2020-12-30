@@ -28,6 +28,8 @@ jobs:
       run: yarn --frozen-lockfile
     - name: build production
       run: yarn build
+    - name: custom domain
+      run: echo "rush.nguyenrk.com" > CNAME
     - name: deploy to github pages 🚀
       uses: peaceiris/actions-gh-pages@v3
       with:
