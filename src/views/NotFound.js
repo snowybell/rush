@@ -1,5 +1,16 @@
+import { Display1 } from 'baseui/typography'
+
 function NotFound() {
-  return <p>404 Not Found :(</p>
+  return (
+    <Display1>
+      <strong>
+        Hey, <br />
+        what are you <br />
+        doing <br />
+        HERE?
+      </strong>
+    </Display1>
+  )
 }
 
 export default NotFound
