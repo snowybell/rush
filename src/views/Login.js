@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { IconGoogle } from '../shared/icons'
-import { Button, KIND, SIZE, SHAPE } from 'baseui/button'
+import { Button } from 'baseui/button'
 import { toaster, ToasterContainer, PLACEMENT } from 'baseui/toast'
-import { Block } from 'baseui/block'
+import { getOAuthLoginURL } from '../shared/api'
 
 const Container = styled.div`
   margin: auto;
@@ -12,12 +12,14 @@ const Container = styled.div`
 `
 
 async function loginHandler() {
-  return new Promise((rs) => {
-    setTimeout(() => {
-      toaster.positive('Hello, RK!', { autoHideDuration: 2000 })
-      rs()
-    }, 1000)
-  })
+  return getOAuthLoginURL()
+    .then((res) => {
+      window.location = res['data']['redirect_url']
+    })
+    .catch((err) => {
+      toaster.negative(err, { autoHideDuration: 2000 })
+      throw err
+    })
 }
 
 function Login() {
@@ -32,9 +34,7 @@ function Login() {
           isLoading={isLoading}
           onClick={() => {
             setIsLoading(true)
-            loginHandler().finally(() => {
-              setIsLoading(false)
-            })
+            loginHandler().catch(() => setIsLoading(false))
           }}
         >
           Login with Google

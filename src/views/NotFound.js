@@ -1,3 +1,4 @@
+import React from 'react'
 import { Display1 } from 'baseui/typography'
 
 function NotFound() {
