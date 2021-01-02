@@ -2,14 +2,9 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { IconGoogle } from '../shared/icons'
 import { Button } from 'baseui/button'
-import { toaster, ToasterContainer, PLACEMENT } from 'baseui/toast'
+import { toaster } from 'baseui/toast'
 import { getOAuthLoginURL } from '../shared/api'
-
-const Container = styled.div`
-  margin: auto;
-  width: fit-content;
-  padding-top: 30vh;
-`
+import { Central } from '../components/layouts/container'
 
 async function loginHandler() {
   return getOAuthLoginURL()
@@ -26,21 +21,19 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false)
 
   return (
-    <ToasterContainer placement={PLACEMENT.topRight}>
-      <Container>
-        <Button
-          startEnhancer={IconGoogle}
-          disabled={isLoading}
-          isLoading={isLoading}
-          onClick={() => {
-            setIsLoading(true)
-            loginHandler().catch(() => setIsLoading(false))
-          }}
-        >
-          Login with Google
-        </Button>
-      </Container>
-    </ToasterContainer>
+    <Central style={{ paddingTop: '30vh' }}>
+      <Button
+        startEnhancer={IconGoogle}
+        disabled={isLoading}
+        isLoading={isLoading}
+        onClick={() => {
+          setIsLoading(true)
+          loginHandler().catch(() => setIsLoading(false))
+        }}
+      >
+        Login with Google
+      </Button>
+    </Central>
   )
 }
 

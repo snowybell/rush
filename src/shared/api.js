@@ -8,3 +8,14 @@ export async function getOAuthLoginURL() {
       throw 'Error when retrieving OAuth login URL'
     })
 }
+
+export async function exchangeToken(oAuthCode) {
+  return axios
+    .post('http://localhost:3001/v1/oauth/google/callback', {
+      code: oAuthCode
+    })
+    .then((res) => res.data)
+    .catch(() => {
+      throw 'Error when exchange JWT'
+    })
+}
